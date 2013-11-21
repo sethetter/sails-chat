@@ -1,0 +1,32 @@
+<% if (!user) { %>
+  <% if (error) { %>
+    <div class="alert alert-danger"><p><%= error %></p></div>
+  <% } %>
+
+  <div class="row">
+    <div class="jumbotron">
+      <h1>Welcome to Sails Chat</h1>
+      <p class="lead">Please log in to chat</p>
+    </div>
+  </div>
+
+<% } else { %>
+
+<div class="row" id="chat">
+  <div id="messages" class="col-xs-10"></div>
+  <div id="users" class="col-xs-2">
+    <p class="lead">Users</p>
+    <ul></ul>
+  </div>
+</div>
+
+<div class="row" id="message-entry">
+  <div class="col-xs-11">
+    <input id="new-message" class="form-control" type="text" name="new-message" />
+  </div>
+  <div class="col-xs-1">
+    <button id="send-message" class="btn btn-default">Send</button>
+  </div>
+</div>
+
+<% } %>

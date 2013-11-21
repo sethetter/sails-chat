@@ -1,0 +1,65 @@
+body {
+margin-top: 70px;
+}
+
+.jumbotron h1,
+.jumbotron p {
+text-align: center;
+}
+
+.jumbotron p {
+font-size: 1.4em;
+}
+
+#messages {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+  overflow: auto;
+}
+
+#messages p {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+#messages .time {
+  float: right;
+}
+
+#chat {
+  position: relative;
+  overflow:   none;
+}
+
+#users {
+  float: right;
+}
+
+#users ul {
+  list-style: none;
+  padding: 0;
+  magin: 0;
+}
+
+#users li {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #eee;
+  padding: 5px 0;
+}
+
+#users li:first-child {
+  border-top: 1px solid #eee;
+}
+
+/*#message-entry input {*/
+/*  width: 100%;*/
+/*}*/
+
+@media (min-width: 768px) {
+  form.navbar-form .form-group {
+    margin-right: 10px;
+  }
+}
