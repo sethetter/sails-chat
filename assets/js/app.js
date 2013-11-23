@@ -34,12 +34,12 @@
 
     ///////////////////////////////////////////////////////////
     // Here's where you'll want to add any custom logic for
-    // when the browser establishes its socket connection to 
+    // when the browser establishes its socket connection to
     // the Sails.js server.
     ///////////////////////////////////////////////////////////
     log(
-        'Socket is now connected and globally accessible as `socket`.\n' + 
-        'e.g. to send a GET request to Sails, try \n' + 
+        'Socket is now connected and globally accessible as `socket`.\n' +
+        'e.g. to send a GET request to Sails, try \n' +
         '`socket.get("/", function (response) ' +
         '{ console.log(response); })`'
     );
@@ -60,7 +60,7 @@
       console.log.apply(console, arguments);
     }
   }
-  
+
 
 })(
 
@@ -113,7 +113,7 @@
       errorDiv.slideDown();
       console.log(data);
     });
-  }; 
+  };
 })(jQuery);
 
 /**
@@ -131,16 +131,11 @@
   socket.request('/user');
 
   socket.on('message', function (msg) {
+    console.log('message', msg);
     if (msg.data) {
       if (msg.data.body) {
-        var time = moment(msg.data.createdAt).format('YYYY-MM-DD HH:mm');
-        messageDiv.append(
-          '<p><strong>' + msg.data.username + ': </strong> ' + msg.data.body
-          + '<span class="time">' + time + '</span>'
-          + '</p>'
-        );
-      } else if (msg.data.loggedIn !== null) {
-        console.log(msg);
+        renderMessage(msg.data);
+      } else if (msg.data.loggedIn !== undefined) {
         if (msg.data.loggedIn) {
           var username = msg.data.username;
           userList.append(
@@ -167,13 +162,7 @@
   var getPastMessages = function () {
     socket.get('/message', function (messages) {
       for (var i = 0, len = messages.length; i < len; i++) {
-        var msg = messages[i];
-        var time = moment(msg.createdAt).format('YYYY-MM-DD HH:mm');
-        messageDiv.append(
-          '<p><strong>' + msg.username + ': </strong> ' + msg.body
-          + '<span class="time">' + time + '</span>'
-          + '</p>'
-        );
+        renderMessage(messages[i]);
       }
     });
   };
@@ -182,7 +171,7 @@
     socket.get('/user', function (users) {
       console.log(users);
       for (var i = 0; i < users.length; i++) {
-        if (users[i].loggedIn) {
+        if (users[i].loggedIn === true) {
           userList.append(
             '<li id="user-' + users[i].id + '">' + users[i].username + '</li>'
           );
@@ -194,10 +183,19 @@
   getPastMessages();
   getUsers();
 
+
+  var renderMessage = function (msg) {
+    var time = moment(msg.createdAt).format('YYYY-MM-DD HH:mm');
+    messageDiv.append(
+      '<p><strong>' + msg.username + ': </strong> ' + msg.body
+      + '<span class="time">' + time + '</span>'
+      + '</p>'
+    );
+  };
   var sendMessage = function () {
     socket.post('/message', { body: newMessage.val() },
     function (data) {
-      console.log(data);
+      renderMessage(data);
     });
     newMessage.val('');
   };

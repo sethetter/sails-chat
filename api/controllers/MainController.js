@@ -46,11 +46,11 @@ module.exports = {
         var match = bcrypt.compareSync(req.param('password'), user.password);
 
         if (match) {
-          user.loggedIn = true;
+          user.loggedIn = 1;
           user.save(function (err) {
             if (err) res.view('home/index', { error: 'Error logging in', user: false });
 
-            User.publishUpdate(user.id, { id: user.id, username: user.username, loggedIn: true });
+            User.publishUpdate(user.id, { id: user.id, username: user.username, loggedIn: 1 });
 
             req.session.user = user;
             res.redirect('/');
@@ -67,7 +67,7 @@ module.exports = {
   logout: function (req, res) {
 
     User.findOne(req.session.user.id, function (err, user) {
-      User.publishUpdate(user.id, { id: user.id, username: user.username, loggedIn: false });
+      User.publishUpdate(user.id, { id: user.id, username: user.username, loggedIn: 0 });
       req.session.user = undefined;
       res.redirect('/');
     });

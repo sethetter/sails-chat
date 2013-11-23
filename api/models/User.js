@@ -15,6 +15,7 @@ module.exports = {
   	username: {
       type: 'string',
       max: 16,
+      unique: true,
       required: true
     },
     password: {
@@ -23,7 +24,7 @@ module.exports = {
     },
     loggedIn: {
       type: 'boolean',
-      defaultsTo: false,
+      defaultsTo: 0,
       required: true
     }
 

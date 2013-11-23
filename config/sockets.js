@@ -23,9 +23,9 @@ module.exports.sockets = {
 
   // This custom onDisconnect function will be run each time a socket disconnects
   onDisconnect: function(session, socket) {
-
-    // By default: do nothing
-    // This is a good place to broadcast a disconnect message, or any other custom socket.io logic
+    if (session.user) {
+      User.publishUpdate(session.user.id, { id: session.user.id, loggedIn: 0 });
+    }
   },
 
 
