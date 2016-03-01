@@ -195,7 +195,7 @@
   var sendMessage = function () {
     socket.post('/message', { body: newMessage.val() },
     function (data) {
-      renderMessage(data);
+      //renderMessage(data);
     });
     newMessage.val('');
   };
